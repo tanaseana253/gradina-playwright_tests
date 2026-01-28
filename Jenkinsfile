@@ -5,25 +5,32 @@ pipeline {
     BASE_URL = credentials('BASE_URL')
     TEST_EMAIL = credentials('TEST_EMAIL')
     TEST_PASSWORD = credentials('TEST_PASSWORD')
+
+    // IMPORTANT: pune browser-ele Playwright în workspace, nu în systemprofile
+    PLAYWRIGHT_BROWSERS_PATH = "${WORKSPACE}\\pw-browsers"
   }
 
   stages {
     stage('Checkout') {
-      steps { checkout scm }
+      steps {
+        checkout scm
+      }
     }
 
     stage('Install') {
       steps {
         bat '''
           npm ci
-          npx playwright install
+          npx playwright install chromium
         '''
       }
     }
 
     stage('Test') {
       steps {
-        bat 'npx playwright test --project=chromium'
+        bat '''
+          npx playwright test --project=chromium
+        '''
       }
     }
   }
