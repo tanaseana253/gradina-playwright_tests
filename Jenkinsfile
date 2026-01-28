@@ -5,8 +5,6 @@ pipeline {
     BASE_URL = credentials('BASE_URL')
     TEST_EMAIL = credentials('TEST_EMAIL')
     TEST_PASSWORD = credentials('TEST_PASSWORD')
-
-    // browser-ele în workspace
     PLAYWRIGHT_BROWSERS_PATH = "${WORKSPACE}\\pw-browsers"
   }
 
